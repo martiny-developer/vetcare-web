@@ -1,0 +1,64 @@
+<div class="vc-login-bg d-flex justify-content-center align-items-center p-3">
+  <div class="card vc-login-card w-100">
+    <div class="card-body p-4 p-md-5">
+      <div class="text-center mb-4">
+        <div class="vc-logo mb-3">🩺</div>
+        <h1 class="h3 fw-bold mb-1">VetCare</h1>
+        <p class="text-muted mb-0">Inicia sesión para continuar</p>
+      </div>
+
+      @if (error()) {
+        <div class="alert alert-danger" role="alert">{{ error() }}</div>
+      }
+
+      <form [formGroup]="formulario" (ngSubmit)="entrar()">
+        <div class="mb-3">
+          <label for="username" class="form-label">Usuario</label>
+          <input
+            id="username"
+            type="text"
+            class="form-control form-control-lg"
+            formControlName="username"
+            autocomplete="username"
+            [class.is-invalid]="formulario.controls.username.touched && formulario.controls.username.invalid"
+          />
+          <div class="invalid-feedback">El usuario es obligatorio</div>
+        </div>
+
+        <div class="mb-4">
+          <label for="password" class="form-label">Contraseña</label>
+          <input
+            id="password"
+            type="password"
+            class="form-control form-control-lg"
+            formControlName="password"
+            autocomplete="current-password"
+            [class.is-invalid]="formulario.controls.password.touched && formulario.controls.password.invalid"
+          />
+          <div class="invalid-feedback">La contraseña es obligatoria</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg w-100" [disabled]="cargando()">
+          @if (cargando()) {
+            Iniciando VetCare...
+          } @else {
+            Entrar
+          }
+        </button>
+      </form>
+
+      @if (cargando()) {
+        <div class="alert alert-info small mt-3 mb-0" role="status">
+          <div class="spinner-border spinner-border-sm me-2" aria-hidden="true"></div>
+          Iniciando VetCare. El servidor puede tardar hasta un minuto en despertar; por
+          favor espera.
+        </div>
+      }
+
+      <div class="vc-demo p-3 mt-4 small">
+        <div class="fw-semibold mb-1"><i class="bi bi-info-circle me-1"></i>Cuenta de demostración</div>
+        <div><code>admin</code> / <code>Vetcare2026</code></div>
+      </div>
+    </div>
+  </div>
+</div>

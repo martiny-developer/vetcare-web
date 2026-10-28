@@ -1,0 +1,80 @@
+<div class="container mt-4 mb-5">
+  <div class="vc-hero mb-4">
+    <h1 class="h3 fw-bold mb-1">Hola, {{ auth.username() }} 👋</h1>
+    <p class="mb-0">Tu rol es <strong>{{ auth.rol() }}</strong> · Resumen de la clínica</p>
+  </div>
+
+  @if (error()) {
+    <div class="alert alert-danger" role="alert">{{ error() }}</div>
+  }
+
+  @if (cargando()) {
+    <div class="text-center py-4">
+      <div class="spinner-border" role="status"></div>
+      <p class="text-muted mt-2">Cargando... </p>
+    </div>
+  } @else {
+    @if (resumen(); as r) {
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">
+          <a routerLink="/duenos" class="vc-stat text-decoration-none">
+            <div class="vc-stat-icon"><i class="bi bi-people-fill"></i></div>
+            <div>
+              <div class="vc-stat-num">{{ r.duenos }}</div>
+              <div class="vc-stat-label">Dueños</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-md-4">
+          <a routerLink="/mascotas" class="vc-stat text-decoration-none">
+            <div class="vc-stat-icon"><i class="bi bi-heart-fill"></i></div>
+            <div>
+              <div class="vc-stat-num">{{ r.mascotas }}</div>
+              <div class="vc-stat-label">Mascotas</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-md-4">
+          <a routerLink="/citas" class="vc-stat text-decoration-none">
+            <div class="vc-stat-icon"><i class="bi bi-calendar-check-fill"></i></div>
+            <div>
+              <div class="vc-stat-num">{{ r.pendientes }}</div>
+              <div class="vc-stat-label">Citas pendientes</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    }
+
+    <div class="card">
+      <div class="card-body">
+        <h2 class="h6 fw-bold mb-3">
+          <i class="bi bi-calendar-event me-2"></i>Próximas citas pendientes
+        </h2>
+
+        @if (proximas().length === 0) {
+          <p class="text-muted mb-0">No hay citas pendientes.</p>
+        } @else {
+          <ul class="list-group list-group-flush">
+            @for (c of proximas(); track c.id) {
+              <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                <div>
+                  <div class="fw-semibold">
+                    {{ c.mascota.nombre }}
+                    <span class="text-muted fw-normal">· {{ c.motivo }}</span>
+                  </div>
+                  <div class="small text-muted">{{ c.veterinario.nombre }}</div>
+                </div>
+                <span class="badge text-bg-warning">{{ c.fechaHora | date: 'dd/MM/yyyy HH:mm' }}</span>
+              </li>
+            }
+          </ul>
+        }
+
+        <a routerLink="/citas" class="btn btn-outline-primary btn-sm mt-3">Ver todas las citas</a>
+      </div>
+    </div>
+  }
+</div>

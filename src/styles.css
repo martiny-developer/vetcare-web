@@ -1,1 +1,185 @@
-/* You can add global styles to this file, and also import other style files */
+/* Bootstrap y su paquete de iconos */
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+/* ---------- Tema de VetCare (verde azulado) ---------- */
+:root {
+  --bs-primary: #0f766e;
+  --bs-primary-rgb: 15, 118, 110;
+  --bs-link-color: #0f766e;
+  --bs-link-color-rgb: 15, 118, 110;
+  --bs-link-hover-color: #115e59;
+  --bs-link-hover-color-rgb: 17, 94, 89;
+  --bs-body-bg: #f1f5f9;
+  --bs-body-color: #1e293b;
+  --vc-radius: 0.9rem;
+  --vc-shadow: 0 2px 14px rgba(15, 23, 42, 0.08);
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Botones ---------- */
+.btn {
+  border-radius: 0.6rem;
+  font-weight: 500;
+}
+
+.btn-primary {
+  --bs-btn-bg: #0f766e;
+  --bs-btn-border-color: #0f766e;
+  --bs-btn-hover-bg: #115e59;
+  --bs-btn-hover-border-color: #115e59;
+  --bs-btn-active-bg: #134e4a;
+  --bs-btn-active-border-color: #134e4a;
+  --bs-btn-disabled-bg: #0f766e;
+  --bs-btn-disabled-border-color: #0f766e;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: #0f766e;
+  --bs-btn-border-color: #0f766e;
+  --bs-btn-hover-bg: #0f766e;
+  --bs-btn-hover-border-color: #0f766e;
+  --bs-btn-active-bg: #115e59;
+  --bs-btn-active-border-color: #115e59;
+}
+
+/* ---------- Formularios ---------- */
+.form-control,
+.form-select {
+  border-radius: 0.6rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #0d9488;
+  box-shadow: 0 0 0 0.2rem rgba(13, 148, 136, 0.2);
+}
+
+/* ---------- Tarjetas, alertas y tablas ---------- */
+.card {
+  border: 0;
+  border-radius: var(--vc-radius);
+  box-shadow: var(--vc-shadow);
+}
+
+.alert {
+  border: 0;
+  border-radius: 0.7rem;
+}
+
+.badge {
+  font-weight: 600;
+}
+
+h1.h4 {
+  font-weight: 700;
+  color: #134e4a;
+}
+
+.table-responsive {
+  background: #fff;
+  border-radius: var(--vc-radius);
+  box-shadow: var(--vc-shadow);
+}
+
+.table {
+  --bs-table-striped-bg: rgba(15, 118, 110, 0.04);
+  margin-bottom: 0;
+}
+
+.table > :not(caption) > * > * {
+  padding: 0.85rem 1rem;
+}
+
+.table thead th {
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* ---------- Pantalla de inicio ---------- */
+.vc-hero {
+  background: linear-gradient(120deg, #0f766e, #14b8a6);
+  color: #fff;
+  border-radius: var(--vc-radius);
+  padding: 1.5rem 1.75rem;
+  box-shadow: var(--vc-shadow);
+}
+
+.vc-stat {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #fff;
+  border-radius: var(--vc-radius);
+  padding: 1.25rem;
+  box-shadow: var(--vc-shadow);
+  color: inherit;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.vc-stat:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.12);
+  color: inherit;
+}
+
+.vc-stat-icon {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  background: rgba(15, 118, 110, 0.12);
+  color: #0f766e;
+}
+
+.vc-stat-num {
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.vc-stat-label {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+/* ---------- Pantalla de login ---------- */
+.vc-login-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f766e 0%, #14b8a6 55%, #5eead4 100%);
+}
+
+.vc-login-card {
+  max-width: 400px;
+  border-radius: 1.2rem;
+}
+
+.vc-logo {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1.1rem;
+  background: rgba(15, 118, 110, 0.12);
+  color: #0f766e;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.vc-demo {
+  background: #f0fdfa;
+  border: 1px dashed #5eead4;
+  border-radius: 0.7rem;
+}

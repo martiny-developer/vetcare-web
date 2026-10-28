@@ -1,0 +1,131 @@
+<div class="container mt-4">
+  <h1 class="h4 mb-3">Citas</h1>
+
+  @if (error()) {
+    <div class="alert alert-danger" role="alert">{{ error() }}</div>
+  }
+
+  @if (!cargando() && mascotas().length === 0) {
+    <div class="alert alert-warning" role="alert">
+      No hay mascotas registradas. Agrega una en la sección <a routerLink="/mascotas">Mascotas</a>.
+    </div>
+  }
+
+  @if (!cargando() && veterinarios().length === 0) {
+    <div class="alert alert-warning" role="alert">
+      No hay veterinarios registrados. Un administrador debe crearlos desde la API.
+    </div>
+  }
+
+  @if (puedeCrear() && mascotas().length > 0 && veterinarios().length > 0) {
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="h6">Nueva cita</h2>
+
+        <form [formGroup]="formulario" (ngSubmit)="guardar()" class="row g-2">
+          <div class="col-md-3">
+            <select
+              class="form-select"
+              formControlName="mascotaId"
+              [class.is-invalid]="formulario.controls.mascotaId.touched && formulario.controls.mascotaId.invalid"
+            >
+              <option [ngValue]="null" disabled>Mascota *</option>
+              @for (m of mascotas(); track m.id) {
+                <option [ngValue]="m.id">{{ m.nombre }} ({{ m.dueno.nombre }})</option>
+              }
+            </select>
+            <div class="invalid-feedback">Selecciona una mascota</div>
+          </div>
+
+          <div class="col-md-3">
+            <select
+              class="form-select"
+              formControlName="veterinarioId"
+              [class.is-invalid]="formulario.controls.veterinarioId.touched && formulario.controls.veterinarioId.invalid"
+            >
+              <option [ngValue]="null" disabled>Veterinario *</option>
+              @for (v of veterinarios(); track v.id) {
+                <option [ngValue]="v.id">{{ etiquetaVeterinario(v) }}</option>
+              }
+            </select>
+            <div class="invalid-feedback">Selecciona un veterinario</div>
+          </div>
+
+          <div class="col-md-2">
+            <input
+              type="datetime-local"
+              class="form-control"
+              formControlName="fechaHora"
+              [class.is-invalid]="formulario.controls.fechaHora.touched && formulario.controls.fechaHora.invalid"
+            />
+            <div class="invalid-feedback">La fecha es obligatoria</div>
+          </div>
+
+          <div class="col-md-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Motivo *"
+              formControlName="motivo"
+              [class.is-invalid]="formulario.controls.motivo.touched && formulario.controls.motivo.invalid"
+            />
+            <div class="invalid-feedback">El motivo es obligatorio</div>
+          </div>
+
+          <div class="col-12 col-md-1 d-grid">
+            <button type="submit" class="btn btn-primary" [disabled]="guardando()">Agendar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  @if (cargando()) {
+    <div class="text-center py-4">
+      <div class="spinner-border" role="status"></div>
+      <p class="text-muted mt-2">Cargando... </p>
+    </div>
+  } @else if (citas().length === 0) {
+    <p class="text-muted">Aún no hay citas registradas.</p>
+  } @else {
+    <div class="table-responsive">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Mascota</th>
+            <th>Veterinario</th>
+            <th>Motivo</th>
+            <th>Estado</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (c of citas(); track c.id) {
+            <tr>
+              <td>{{ c.fechaHora | date: 'dd/MM/yyyy HH:mm' }}</td>
+              <td>{{ c.mascota.nombre }} <span class="text-muted">({{ c.mascota.especie }})</span></td>
+              <td>{{ c.veterinario.nombre }}</td>
+              <td>{{ c.motivo }}</td>
+              <td>
+                <span class="badge" [class]="claseEstado(c.estado)">{{ c.estado }}</span>
+              </td>
+              <td class="text-end">
+                @if (puedeAtender() && c.estado === 'PENDIENTE') {
+                  <button type="button" class="btn btn-sm btn-success me-1" (click)="atender(c)">
+                    Atender
+                  </button>
+                }
+                @if (puedeBorrar()) {
+                  <button type="button" class="btn btn-sm btn-outline-danger" (click)="eliminar(c)">
+                    Eliminar
+                  </button>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

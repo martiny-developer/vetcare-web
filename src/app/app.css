@@ -1,0 +1,37 @@
+/* Barra de navegacion */
+.vc-navbar {
+  background: linear-gradient(90deg, #0f766e, #0d9488);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  padding-block: 0.65rem;
+}
+
+.vc-navbar .navbar-brand {
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: 0.3px;
+}
+
+.vc-navbar .nav-link {
+  color: rgba(255, 255, 255, 0.82);
+  font-weight: 500;
+  border-radius: 0.55rem;
+  padding: 0.45rem 0.9rem;
+  margin-inline: 0.15rem;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.vc-navbar .nav-link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.vc-navbar .nav-link.active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.vc-user {
+  color: #fff;
+}

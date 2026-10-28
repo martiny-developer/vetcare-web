@@ -1,0 +1,133 @@
+<div class="container mt-4">
+  <h1 class="h4 mb-3">Mascotas</h1>
+
+  @if (error()) {
+    <div class="alert alert-danger" role="alert">{{ error() }}</div>
+  }
+
+  @if (!cargando() && duenos().length === 0) {
+    <div class="alert alert-warning" role="alert">
+      Primero registra un dueño en la sección <a routerLink="/duenos">Dueños</a>.
+    </div>
+  }
+
+  @if (puedeEditar() && duenos().length > 0) {
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="h6">{{ editandoId() === null ? 'Nueva mascota' : 'Editar mascota' }}</h2>
+
+        <form [formGroup]="formulario" (ngSubmit)="guardar()" class="row g-2">
+          <div class="col-md-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Nombre *"
+              formControlName="nombre"
+              [class.is-invalid]="formulario.controls.nombre.touched && formulario.controls.nombre.invalid"
+            />
+            <div class="invalid-feedback">El nombre es obligatorio</div>
+          </div>
+
+          <div class="col-md-2">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Especie *"
+              formControlName="especie"
+              [class.is-invalid]="formulario.controls.especie.touched && formulario.controls.especie.invalid"
+            />
+            <div class="invalid-feedback">La especie es obligatoria</div>
+          </div>
+
+          <div class="col-md-2">
+            <input type="text" class="form-control" placeholder="Raza" formControlName="raza" />
+          </div>
+
+          <div class="col-md-1">
+            <input
+              type="number"
+              min="0"
+              class="form-control"
+              placeholder="Edad"
+              formControlName="edad"
+              [class.is-invalid]="formulario.controls.edad.invalid"
+            />
+          </div>
+
+          <div class="col-md-3">
+            <select
+              class="form-select"
+              formControlName="duenoId"
+              [class.is-invalid]="formulario.controls.duenoId.touched && formulario.controls.duenoId.invalid"
+            >
+              <option [ngValue]="null" disabled>Dueño *</option>
+              @for (d of duenos(); track d.id) {
+                <option [ngValue]="d.id">{{ d.nombre }}</option>
+              }
+            </select>
+            <div class="invalid-feedback">Selecciona un dueño</div>
+          </div>
+
+          <div class="col-12 col-md-1 d-grid">
+            <button type="submit" class="btn btn-primary" [disabled]="guardando()">
+              {{ editandoId() === null ? 'Agregar' : 'Guardar' }}
+            </button>
+          </div>
+        </form>
+
+        @if (editandoId() !== null) {
+          <button type="button" class="btn btn-link btn-sm px-0 mt-2" (click)="cancelar()">
+            Cancelar edición
+          </button>
+        }
+      </div>
+    </div>
+  }
+
+  @if (cargando()) {
+    <div class="text-center py-4">
+      <div class="spinner-border" role="status"></div>
+      <p class="text-muted mt-2">Cargando... </p>
+    </div>
+  } @else if (mascotas().length === 0) {
+    <p class="text-muted">Aún no hay mascotas registradas.</p>
+  } @else {
+    <div class="table-responsive">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Especie</th>
+            <th>Raza</th>
+            <th>Edad</th>
+            <th>Dueño</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (m of mascotas(); track m.id) {
+            <tr>
+              <td>{{ m.nombre }}</td>
+              <td>{{ m.especie }}</td>
+              <td>{{ m.raza || '—' }}</td>
+              <td>{{ m.edad ?? '—' }}</td>
+              <td>{{ m.dueno.nombre }}</td>
+              <td class="text-end">
+                @if (puedeEditar()) {
+                  <button type="button" class="btn btn-sm btn-outline-primary me-1" (click)="editar(m)">
+                    Editar
+                  </button>
+                }
+                @if (puedeBorrar()) {
+                  <button type="button" class="btn btn-sm btn-outline-danger" (click)="eliminar(m)">
+                    Eliminar
+                  </button>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>
