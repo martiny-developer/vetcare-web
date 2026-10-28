@@ -8,6 +8,9 @@ Interfaz web de VetCare, un sistema para gestionar una clínica veterinaria. Con
 
 ## Capturas
 
+<img width="1228" height="593" alt="image" src="https://github.com/user-attachments/assets/f365e942-7713-4bf2-a7f6-da02542a0d44" />
+
+
 (agrega aquí tus capturas)
 
 ## Cuentas de demostración
@@ -74,6 +77,3 @@ La API debe permitir el origen de la página publicada en su configuración de C
 ## Autor
 
 **Martiny** · Desarrollador Backend Java
-
-- GitHub: (pega el link aquí)
-- LinkedIn: (pega el link aquí)
