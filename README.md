@@ -1,4 +1,4 @@
-# VetCare Web
+# 🩺VetCare Web
 
 Interfaz web de VetCare, un sistema para gestionar una clínica veterinaria. Consume la API REST de [vetcare-api](https://github.com/martiny-developer/vetcare-api) y adapta lo que muestra según el rol del usuario.
 
@@ -6,12 +6,9 @@ Interfaz web de VetCare, un sistema para gestionar una clínica veterinaria. Con
 >
 > La API corre en un plan gratuito que se apaga por inactividad: el primer inicio de sesión puede tardar hasta un minuto. La pantalla de login lo avisa mientras espera.
 
-## Capturas
+## Captura
 
 <img width="1228" height="593" alt="image" src="https://github.com/user-attachments/assets/f365e942-7713-4bf2-a7f6-da02542a0d44" />
-
-
-(agrega aquí tus capturas)
 
 ## Cuentas de demostración
 
