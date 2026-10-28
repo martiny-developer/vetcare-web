@@ -1,59 +1,79 @@
-# VetcareWeb
+# VetCare Web
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.4.
+Interfaz web de VetCare, un sistema para gestionar una clínica veterinaria. Consume la API REST de [vetcare-api](https://github.com/martiny-developer/vetcare-api) y adapta lo que muestra según el rol del usuario.
 
-## Development server
+> **Demo en línea:** https://martiny-developer.github.io/vetcare-web/
+>
+> La API corre en un plan gratuito que se apaga por inactividad: el primer inicio de sesión puede tardar hasta un minuto. La pantalla de login lo avisa mientras espera.
 
-To start a local development server, run:
+## Capturas
 
-```bash
-ng serve
+(agrega aquí tus capturas)
+
+## Cuentas de demostración
+
+| Usuario | Contraseña | Rol |
+|---|---|---|
+| `admin` | `Vetcare2026` | ADMIN |
+| `recepcion1` | `clave1234` | RECEPCIONISTA |
+| `veterinario1` | `clave1234` | VETERINARIO |
+
+Son cuentas de prueba con datos ficticios.
+
+## Tecnologías
+
+- Angular 22 con componentes standalone y signals
+- TypeScript y RxJS
+- Formularios reactivos
+- Bootstrap 5 y Bootstrap Icons
+- GitHub Actions y GitHub Pages para el despliegue
+
+## Funcionalidades
+
+- Inicio de sesión con token JWT y cierre de sesión.
+- Panel de inicio con totales de dueños, mascotas y citas pendientes, y la lista de próximas citas.
+- Dueños y mascotas: listar, crear, editar y eliminar.
+- Citas: agendar, atender y eliminar, con selección de mascota y veterinario.
+- Botones y formularios visibles según el rol (`ADMIN`, `RECEPCIONISTA` o `VETERINARIO`).
+- Mensajes de error claros cuando la API rechaza una operación.
+- Aviso de espera mientras el servidor gratuito se despierta.
+
+## Cómo está organizado
+
+```
+src/app/
+├── core/        servicio de autenticación, interceptor del token y guards de rutas
+├── features/    pantallas: login, inicio, dueños, mascotas y citas
+├── models/      interfaces que reflejan los DTO de la API
+└── services/    servicios que llaman a la API
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Decisiones de diseño:
 
-## Code scaffolding
+- **Interceptor HTTP:** agrega el token `Bearer` a cada petición hacia la API y cierra la sesión si el servidor responde 401.
+- **Guards de ruta:** exigen sesión iniciada y, si hace falta, un rol concreto. Solo ocultan pantallas: la seguridad real está en la API.
+- **Sesión en `sessionStorage`:** se borra al cerrar la pestaña.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Ejecutar en local
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Requisitos: Node.js compatible con Angular 22.
 
 ```bash
-ng generate --help
+npm install
+npm start
 ```
 
-## Building
+La aplicación queda en `http://localhost:4200`. La dirección de la API está en `src/environments/environment.ts`. Para trabajar con tu propia API local, cámbiala a `http://localhost:8080/api`.
 
-To build the project run:
+## Despliegue
 
-```bash
-ng build
-```
+Cada vez que se sube código a la rama `main`, un flujo de GitHub Actions (`.github/workflows/deploy.yml`) compila la aplicación y la publica en GitHub Pages. Como Pages no conoce las rutas de Angular, el flujo copia `index.html` a `404.html` para que recargar una sección no dé error.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+La API debe permitir el origen de la página publicada en su configuración de CORS.
 
-## Running unit tests
+## Autor
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+**Martiny** · Desarrollador Backend Java
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- GitHub: (pega el link aquí)
+- LinkedIn: (pega el link aquí)
